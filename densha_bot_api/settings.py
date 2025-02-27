@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "densha_api_app",
     "rest_framework",
-    'django_crontab',
 ]
 
 MIDDLEWARE = [
