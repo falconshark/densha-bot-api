@@ -15,8 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from densha_api_app.urls import router as densha_router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("densha/", include(densha_router.urls)),
 ]
