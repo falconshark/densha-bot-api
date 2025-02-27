@@ -1,3 +1,11 @@
+from pathlib import Path
+import os
+from dotenv import load_dotenv
+dotenv_path = Path('.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+
+
 """
 Django settings for densha_bot_api project.
 
@@ -78,11 +86,11 @@ WSGI_APPLICATION = 'densha_bot_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'densha_bot',
-        'USER': 'root',
-        'PASSWORD': 'mc03augk',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQL_HOST'),
+        'PORT': os.getenv('MYSQL_PORT'),
     }
 }
 
