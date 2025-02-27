@@ -1,9 +1,10 @@
-from django.shortcuts import render
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter
 from .models import Route
 from .serializers import RouteSerializer
-
-class RouteApiView(viewsets.ModelViewSet):
-    queryset = Route.objects.all()
+    
+class RouteView(viewsets.ModelViewSet):
+    filter_backends = [SearchFilter]
+    search_fields = ['=route_name']
     serializer_class = RouteSerializer
-
+    queryset = Route.objects.all()

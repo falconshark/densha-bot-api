@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework import routers
-from .views import RouteApiView 
+from .views import RouteView
 
-router = routers.DefaultRouter()
-router.register(r'route', RouteApiView)
+router = routers.SimpleRouter()
+router.register(r'routes', RouteView, 'route-detail')
