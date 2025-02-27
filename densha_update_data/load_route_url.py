@@ -14,7 +14,7 @@ connection = pymysql.connect(
     password=os.getenv('MYSQL_PASSWORD'),
     database=os.getenv('MYSQL_DATABASE')
 )
-
+    
 cursor = connection.cursor()
 
 main_url = 'https://transit.yahoo.co.jp/diainfo'
@@ -48,3 +48,5 @@ for key, value in areas.items():
         query = "INSERT INTO `densha_api_app_route` (`route_name`, `route_url`, `route_area`) VALUES (%s, %s, %s)"
         cursor.execute(query, (route_name, route_url, value))
         connection.commit()
+        
+connection.close()
