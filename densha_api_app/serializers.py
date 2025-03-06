@@ -7,4 +7,5 @@ class RouteSerializer(serializers.ModelSerializer):
         model = Route 
         fields = ('id', 'route_name', 'route_url', 'route_status')
     def get_route_status(self, obj):
-       return load_status(obj.route_url)    
+        status = load_status(obj.route_url)
+        return status 
