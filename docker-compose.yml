@@ -5,5 +5,16 @@ services:
     build: .
     restart: always
     command: ./start.sh
+    links:
+      - "db:database"
     ports:
       - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: mysql
+    restart: always
+    command: mysqld --init-file="/tmp/database/install_db.sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: 'Asia/Tokyo'
