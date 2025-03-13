@@ -14,7 +14,6 @@ services:
   db:
     image: mysql
     restart: always
-    command: mysqld --init-file="/tmp/database/install_db.sql"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       TZ: 'Asia/Tokyo'
