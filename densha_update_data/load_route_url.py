@@ -1,7 +1,22 @@
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
+from pathlib import Path
 import os
-import json
+from dotenv import load_dotenv
+import pymysql
+
+dotenv_path = Path('../.env')
+load_dotenv(dotenv_path=dotenv_path)
+
+connection = pymysql.connect(
+    host=os.getenv('MYSQL_HOST'),
+    user=os.getenv('MYSQL_USER'),
+    password=os.getenv('MYSQL_PASSWORD'),
+    database=os.getenv('MYSQL_DATABASE')
+)
+    
+cursor = connection.cursor()
+
 main_url = 'https://transit.yahoo.co.jp/diainfo'
 
 areas = {
@@ -14,8 +29,6 @@ areas = {
     '四国': '/area/9',
     '九州': '/area/7',
 }
-
-routes_info = []
         
 for key, value in areas.items():
     url = main_url + value
@@ -29,18 +42,11 @@ for key, value in areas.items():
         
     area_soup = BeautifulSoup(pageContent, 'html.parser')
     routes = area_soup.select('#mdAreaMajorLine td a')
-    
     for route in routes:
         route_name = route.get_text()
         route_url = route['href']
-        route_info = {
-            'route_name': route_name,
-            'route_area_name': key,
-            'route_area_url': value,
-            'route_url': route_url,
-        }
-        routes_info.append(route_info)
+        query = "INSERT INTO `densha_api_app_route` (`route_name`, `route_url`, `route_area`) VALUES (%s, %s, %s)"
+        cursor.execute(query, (route_name, route_url, value))
+        connection.commit()
         
-with open('../route_data.json', 'w') as f:
-    json.dump(routes_info, f)
-        
+connection.close()
