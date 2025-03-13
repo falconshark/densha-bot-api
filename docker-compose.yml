@@ -1,38 +1,20 @@
-version: '3.10'
+version: '3'
+
 services:
-  mysql:
-    container_name: mysql
-    image: mysql:5.7
+  web:
+    build: .
+    restart: always
+    command: ./start.sh
+    links:
+      - "db:database"
     ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: densha_bot_api
-      MYSQL_USER: densha_bot_api
-      MYSQL_PASSWORD: densha_bot_api
-    volumes:
-      - ./mysql:/var/lib/mysql
-
-  densha_bot_api:
-    container_name: densha_bot_api
-    build:
-      context: .
-      dockerfile: Dockerfile
-    working_dir: '/app/densha_bot_api'
-    tty: true
-    volumes:
-      - ./:/app/densha_bot_api
-    image: densha_bot_api
-    env_file:
-      - .env
-
-  nginx:
-    container_name: nginx
-    build:
-      context: .
-      dockerfile: Dockerfile.nginx
-    ports:
-      - "80:80"
-    image: densha_bot_api-nginx
+      - "8000:8000"
     depends_on:
-      - densha_bot_api
+      - db
+  db:
+    image: mysql
+    restart: always
+    command: mysqld --init-file="/tmp/database/install_db.sql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: 'Asia/Tokyo'
