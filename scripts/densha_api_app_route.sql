@@ -1,11 +1,11 @@
--- Adminer 4.8.1 MySQL 9.2.0 dump
-
 SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
-
 SET NAMES utf8mb4;
+
+CREATE DATABASE IF NOT EXISTS densha_bot_api;
+USE densha_bot_api;
 
 DROP TABLE IF EXISTS `densha_api_app_route`;
 CREATE TABLE `densha_api_app_route` (

@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   web:
     build: .
@@ -14,6 +12,8 @@ services:
   db:
     image: mysql
     restart: always
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d/:rw
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
       TZ: 'Asia/Tokyo'
