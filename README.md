@@ -6,6 +6,7 @@
 このAPIを利用することで、現在の路線の遅延情報を簡単に取得でき、これを利用した各種アプリの開発が可能です。
 
 ## URL
+https://densha.sardo.work/densha/routes/?format=json
 
 ## 設置手順（普通）
 1. 必要なパッケージをインストール：
