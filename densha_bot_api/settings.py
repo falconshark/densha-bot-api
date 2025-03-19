@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 dotenv_path = Path('.env')
 load_dotenv(dotenv_path=dotenv_path)
 
-
-
 """
 Django settings for densha_bot_api project.
 
@@ -28,12 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY'),
+if os.getenv('DJANGO_SECRET_KEY') is None:
+    SECRET_KEY = 'django-insecure-#73#z!$3zr1!1zv6b@9d@2!&$1@5l6fjx2z@1!0w6y#7' 
+else:
+    SECRET_KEY = os.getenv('DJANGO_SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'desha.sardo.work']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
