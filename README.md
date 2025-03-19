@@ -35,15 +35,15 @@ python manage.py runserver
 
 ## 使用方法
 
-### `GET /densha/routes/`
+### `GET /densha/routes/?format=json`
 すべての路線の最新情報を取得する。
 
 #### クエリオプション (Query):
 - `offset` : 別のページの情報を取得するためのオフセット。  
-  **例:** `/densha/routes/?offset=10`
+  **例:** `/densha/routes/?format=json&offset=10`
 
 - `search` : 指定した路線を検索するためのクエリ。  
-  **例:** `/densha/routes/?search=山手線`
+  **例:** `/densha/routes/?format=json&search=山手線`
 
 
 ## Issues
